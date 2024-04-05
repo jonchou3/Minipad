@@ -1,4 +1,4 @@
-import java.awt.Color;
+ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -32,28 +32,28 @@ public class TextEditorGUI implements ActionListener{
 		createFrame();
 		createTextArea();
 		createMenuBar();
-		frame.setVisible(true);
+		getFrame().setVisible(true);
 	}
 	public void createFrame() {
-		frame = new JFrame("Text Editor (❁´◡`❁)");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(800,800);
-		frame.setLocationRelativeTo(null);		
+		setFrame(new JFrame("Text Editor (❁´◡`❁)"));
+		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getFrame().setSize(800,800);
+		getFrame().setLocationRelativeTo(null);		
 	}
 	public void createTextArea() {
 		
-		textArea = new JTextArea();
-		textArea.setSize(new Dimension(800,800));
-		textArea.setFont(myFont);
-		panel = new JScrollPane(textArea, 
+		setTextArea(new JTextArea());
+		getTextArea().setSize(new Dimension(800,800));
+		getTextArea().setFont(myFont);
+		panel = new JScrollPane(getTextArea(), 
 				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		panel.setBorder(BorderFactory.createBevelBorder(30));
-		frame.add(panel);
+		getFrame().add(panel);
 	}
 	public void createMenuBar() {
 		menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
+		getFrame().setJMenuBar(menuBar);
 		
 		menuFile = new JMenu("File");
 		menuBar.add(menuFile);
@@ -113,9 +113,30 @@ public class TextEditorGUI implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == fileNew) {
-			JOptionPane.showMessageDialog(editFind, e);
 			int response = JOptionPane.showConfirmDialog(null, "Do you want to save your changes?","",JOptionPane.YES_NO_OPTION);
 			//yes, no , if yes, call new 
+			if(response == 1){
+				//save 
+			}
+			else if(response == 2) {
+				//save as
+			}
+			textArea.setText("");
 		}
+		if(e.getSource() == fileOpen) {
+			FileIO.open()
+		}
+	}
+	public JFrame getFrame() {
+		return frame;
+	}
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}
+	public JTextArea getTextArea() {
+		return textArea;
+	}
+	public void setTextArea(JTextArea textArea) {
+		this.textArea = textArea;
 	}
 }

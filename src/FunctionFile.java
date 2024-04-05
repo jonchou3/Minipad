@@ -7,11 +7,11 @@ public class FunctionFile{
 	}
 	
 	public void newFile() {
-		gui.textArea.setText("");
-		gui.frame.setTitle("New");
+		gui.getTextArea().setText("");
+		gui.getFrame().setTitle("New");
 	}
 	public void open() {
-		FileDialog fd = new FileDialog(gui.frame, "Open", FileDialog.LOAD);
+		FileDialog fd = new FileDialog(gui.getFrame(), "Open", FileDialog.LOAD);
 		fd.setVisible(true);
 	}
 }
