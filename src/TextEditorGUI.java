@@ -72,38 +72,49 @@ public class TextEditorGUI implements ActionListener{
 	public void createFileMenu() {
 		fileNew = new JMenuItem("New");
 		menuFile.add(fileNew);
+		fileNew.addActionListener(this);
 		fileOpen = new JMenuItem("Open");
+		fileOpen.addActionListener(this);
 		menuFile.add(fileOpen);
 		fileSave = new JMenuItem("Save");
+		fileSave.addActionListener(this);
 		menuFile.add(fileSave);
 	}
 	public void createEditMenu() {
 		editUndo = new JMenuItem("Edit");
+		editUndo.addActionListener(this);
 		menuEdit.add(editUndo);
 		editFind = new JMenuItem("Find");
+		editFind.addActionListener(this);
 		menuEdit.add(editFind);
 		editReplace = new JMenuItem("Replace");
+		editUndo.addActionListener(this);
 		menuEdit.add(editReplace);
 		editTimeDate = new JMenuItem("TimeDate");
+		editTimeDate.addActionListener(this);
 		menuEdit.add(editTimeDate);
 	}
 	public void createFormatMenu() {
 		formatWordWrap = new JMenuItem("Word Wrap");
+		formatWordWrap.addActionListener(this);
 		menuFormat.add(formatWordWrap);
 		formatFont = new JMenuItem("Font");
+		formatFont.addActionListener(this);
 		menuFormat.add(formatFont);
 	}
 	public void createViewMenu() {
 		viewZoom = new JMenuItem("Zoom");
+		viewZoom.addActionListener(this);
 		menuView.add(viewZoom);
 		viewStatusBar = new JMenuItem("Status Bar");
+		viewStatusBar.addActionListener(this);
 		menuView.add(viewStatusBar);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == fileNew) {
 			JOptionPane.showMessageDialog(editFind, e);
-			int response = JOptionPane.showConfirmDialog(null, "Choose one","Choose one",JOptionPane.YES_NO_OPTION);
+			int response = JOptionPane.showConfirmDialog(null, "Do you want to save your changes?","",JOptionPane.YES_NO_OPTION);
 			//yes, no , if yes, call new 
 		}
 	}
