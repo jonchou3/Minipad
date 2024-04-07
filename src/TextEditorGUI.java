@@ -3,6 +3,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -40,7 +42,7 @@ public class TextEditorGUI implements ActionListener{
 	public void createFrame() {
 		setFrame(new JFrame("Text Editor (❁´◡`❁)"));
 		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getFrame().setSize(800,800);
+		getFrame().setSize(500,500);
 		getFrame().setLocationRelativeTo(null);		
 	}
 	public void createTextArea() {
@@ -153,10 +155,12 @@ public class TextEditorGUI implements ActionListener{
 			
 		}
 		if(e.getSource() == editTimeDate) {
-			
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");  
+			LocalDateTime now = LocalDateTime.now();
+			textArea.append(formatter.format(now));
 		}
 		if(e.getSource() == formatWordWrap) {
-			
+			textArea.setLineWrap(!textArea.getLineWrap());
 		}
 		if(e.getSource() == formatFont) {
 			

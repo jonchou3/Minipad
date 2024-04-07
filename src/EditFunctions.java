@@ -1,16 +1,14 @@
 
-public class UndoRedo {
+public class EditFunctions {
 	TextEditorGUI gui;
-	public UndoRedo(TextEditorGUI gui) {
+	public EditFunctions(TextEditorGUI gui) {
 		this.gui = gui;
+		
 	}
 	public void Undo() {
 		
 	}
 	public void Redo() {
-		
-	}
-	public void Replace() {
 		
 	}
 }
