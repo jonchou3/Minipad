@@ -1,11 +1,11 @@
 import java.awt.FileDialog;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 
 import javax.swing.JOptionPane;
 
 public class FileIO {
-	//turn function file into file io
 	TextEditorGUI gui;
 	String fileName, fileAddress;
 	public FileIO(TextEditorGUI gui) {
@@ -38,12 +38,29 @@ public class FileIO {
 		}
 	}
 	public void save() {
+		if(fileName == null) {
+			saveAs();
+		}
+		else {
+			try {
+				FileWriter fw = new FileWriter(fileAddress + fileName);
+				fw.write(gui.getTextArea().getText());
+				gui.getFrame().setTitle(fileName);
+				fw.close();
+			}catch(Exception e){
+				JOptionPane.showMessageDialog(null, "Error saving file");
+			}
+		}
 		
 	}
 	public void saveAs() {
-//		FileDialog fd = new FileDialog(gui.getFrame(), "Save", FileDialog.SAVE);
-//		fd.setVisible(true);
-//		
-		
+		FileDialog fd = new FileDialog(gui.getFrame(), "Save", FileDialog.SAVE);
+		fd.setVisible(true);
+		if(fd.getFile() != null) {
+			fileName = fd.getFile();
+			fileAddress = fd.getDirectory();
+			gui.getFrame().setTitle(fileName);
+			save();
+		}
 	}
 }

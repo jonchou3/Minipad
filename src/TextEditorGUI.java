@@ -3,7 +3,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -21,18 +20,22 @@ public class TextEditorGUI implements ActionListener{
 	private JTextArea textArea;
 	private JMenuBar menuBar;
 	private JMenu menuFile, menuEdit, menuFormat, menuView;
-	private JMenuItem fileNew, fileOpen, fileSave;
-	private JMenuItem editUndo, editFind, editReplace, editTimeDate;
+	private JMenuItem fileNew, fileOpen, fileSave, fileSaveAs;
+	private JMenuItem editUndo, editRedo, editFind, editReplace, editTimeDate;
 	private JMenuItem formatWordWrap, formatFont;
 	private JMenuItem viewZoom, viewStatusBar;
 	private Font myFont;
+	private KeyHandler kh;
 	
+	private FileIO file = new FileIO(this);
 	public TextEditorGUI() {
 		myFont = new Font("Helvetica",Font.PLAIN, 20);
 		createFrame();
 		createTextArea();
 		createMenuBar();
 		getFrame().setVisible(true);
+		kh = new KeyHandler(this);
+		
 	}
 	public void createFrame() {
 		setFrame(new JFrame("Text Editor (❁´◡`❁)"));
@@ -45,6 +48,7 @@ public class TextEditorGUI implements ActionListener{
 		setTextArea(new JTextArea());
 		getTextArea().setSize(new Dimension(800,800));
 		getTextArea().setFont(myFont);
+		getTextArea().addKeyListener(kh);
 		panel = new JScrollPane(getTextArea(), 
 				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -79,11 +83,17 @@ public class TextEditorGUI implements ActionListener{
 		fileSave = new JMenuItem("Save");
 		fileSave.addActionListener(this);
 		menuFile.add(fileSave);
+		fileSaveAs = new JMenuItem("Save As");
+		fileSaveAs.addActionListener(this);
+		menuFile.add(fileSaveAs);
 	}
 	public void createEditMenu() {
-		editUndo = new JMenuItem("Edit");
+		editUndo = new JMenuItem("Undo");
 		editUndo.addActionListener(this);
 		menuEdit.add(editUndo);
+		editRedo = new JMenuItem("Redo");
+		editRedo.addActionListener(this);
+		menuEdit.add(editRedo);
 		editFind = new JMenuItem("Find");
 		editFind.addActionListener(this);
 		menuEdit.add(editFind);
@@ -115,16 +125,47 @@ public class TextEditorGUI implements ActionListener{
 		if(e.getSource() == fileNew) {
 			int response = JOptionPane.showConfirmDialog(null, "Do you want to save your changes?","",JOptionPane.YES_NO_OPTION);
 			//yes, no , if yes, call new 
-			if(response == 1){
-				//save 
+			if(response == JOptionPane.YES_OPTION){
+				file.save();
+				textArea.setText("");
 			}
-			else if(response == 2) {
-				//save as
+			else if(response == JOptionPane.NO_OPTION) {
+				textArea.setText("");
 			}
-			textArea.setText("");
+			
 		}
 		if(e.getSource() == fileOpen) {
-			FileIO.open()
+			file.open();
+		}
+		if(e.getSource() == fileSave) {
+			file.save();
+		}
+		if(e.getSource() == fileSaveAs) {
+			file.saveAs();
+		}
+		if(e.getSource() == editUndo) {
+			
+		}
+		if(e.getSource() == editFind) {
+			
+		}
+		if(e.getSource() == editReplace) {
+			
+		}
+		if(e.getSource() == editTimeDate) {
+			
+		}
+		if(e.getSource() == formatWordWrap) {
+			
+		}
+		if(e.getSource() == formatFont) {
+			
+		}
+		if(e.getSource() == viewZoom) {
+			
+		}
+		if(e.getSource() == viewStatusBar) {
+			
 		}
 	}
 	public JFrame getFrame() {
