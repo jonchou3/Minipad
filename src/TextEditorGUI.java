@@ -148,6 +148,9 @@ public class TextEditorGUI implements ActionListener{
 		if(e.getSource() == editUndo) {
 			
 		}
+		if(e.getSource() == editRedo) {
+			
+		}
 		if(e.getSource() == editFind) {
 			
 		}
