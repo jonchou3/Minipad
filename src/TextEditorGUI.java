@@ -24,7 +24,7 @@ public class TextEditorGUI implements ActionListener{
 	private JMenu menuFile, menuEdit, menuFormat, menuView;
 	private JMenuItem fileNew, fileOpen, fileSave, fileSaveAs;
 	private JMenuItem editUndo, editRedo, editFind, editReplace, editTimeDate;
-	private JMenuItem formatWordWrap, formatFont;
+	private JMenuItem formatWordWrap, formatFont, formatDarkMode;
 	private JMenuItem viewZoom, viewStatusBar;
 	private Font myFont;
 	private KeyHandler kh;
@@ -113,6 +113,9 @@ public class TextEditorGUI implements ActionListener{
 		formatFont = new JMenuItem("Font");
 		formatFont.addActionListener(this);
 		menuFormat.add(formatFont);
+		formatDarkMode = new JMenuItem("Dark Mode (On/Off)");
+		formatDarkMode.addActionListener(this);
+		menuFormat.add(formatDarkMode);
 	}
 	public void createViewMenu() {
 		viewZoom = new JMenuItem("Zoom");
@@ -163,6 +166,9 @@ public class TextEditorGUI implements ActionListener{
 			textArea.setLineWrap(!textArea.getLineWrap());
 		}
 		if(e.getSource() == formatFont) {
+			
+		}
+		if(e.getSource() == formatDarkMode) {
 			
 		}
 		if(e.getSource() == viewZoom) {
