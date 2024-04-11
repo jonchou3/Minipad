@@ -10,7 +10,7 @@ public class UndoRedo {
 	public void Write(String input) {
 		undo.push(input);
 	}
-	public String Undo() {
+	public String undo() {
 		if(undo.peek() != null) {
 			String output = undo.pop();
 			redo.push(output);
@@ -18,7 +18,7 @@ public class UndoRedo {
 		}
 		return "";
 	}
-	public String Redo() {
+	public String redo() {
 		if(redo.peek() != null) {
 			String output = redo.pop();
 			undo.push(output);
@@ -26,7 +26,10 @@ public class UndoRedo {
 		}
 		return "";
 	}
-	public void Replace() {
-		
+	public String find() {
+		return "";
+	}
+	public String replace() {
+		return "";
 	}
 }

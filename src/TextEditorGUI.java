@@ -14,6 +14,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.event.UndoableEditEvent;
 
 public class TextEditorGUI implements ActionListener{
 	
@@ -25,7 +26,7 @@ public class TextEditorGUI implements ActionListener{
 	private JMenuItem fileNew, fileOpen, fileSave, fileSaveAs;
 	private JMenuItem editUndo, editRedo, editFind, editReplace, editTimeDate;
 	private JMenuItem formatWordWrap, formatFont, formatDarkMode;
-	private JMenuItem viewZoom, viewStatusBar;
+	private JMenuItem viewZoom, viewZoomIn, viewZoomOut, viewZoomDefault, viewStatusBar;
 	private Font myFont;
 	private KeyHandler kh;
 	
@@ -79,12 +80,15 @@ public class TextEditorGUI implements ActionListener{
 		fileNew = new JMenuItem("New");
 		menuFile.add(fileNew);
 		fileNew.addActionListener(this);
+		
 		fileOpen = new JMenuItem("Open");
 		fileOpen.addActionListener(this);
 		menuFile.add(fileOpen);
+		
 		fileSave = new JMenuItem("Save");
 		fileSave.addActionListener(this);
 		menuFile.add(fileSave);
+		
 		fileSaveAs = new JMenuItem("Save As");
 		fileSaveAs.addActionListener(this);
 		menuFile.add(fileSaveAs);
@@ -93,15 +97,19 @@ public class TextEditorGUI implements ActionListener{
 		editUndo = new JMenuItem("Undo");
 		editUndo.addActionListener(this);
 		menuEdit.add(editUndo);
+		
 		editRedo = new JMenuItem("Redo");
 		editRedo.addActionListener(this);
 		menuEdit.add(editRedo);
+		
 		editFind = new JMenuItem("Find");
 		editFind.addActionListener(this);
 		menuEdit.add(editFind);
+		
 		editReplace = new JMenuItem("Replace");
 		editUndo.addActionListener(this);
 		menuEdit.add(editReplace);
+		
 		editTimeDate = new JMenuItem("TimeDate");
 		editTimeDate.addActionListener(this);
 		menuEdit.add(editTimeDate);
@@ -110,17 +118,31 @@ public class TextEditorGUI implements ActionListener{
 		formatWordWrap = new JMenuItem("Word Wrap");
 		formatWordWrap.addActionListener(this);
 		menuFormat.add(formatWordWrap);
+		
 		formatFont = new JMenuItem("Font");
 		formatFont.addActionListener(this);
 		menuFormat.add(formatFont);
+		
 		formatDarkMode = new JMenuItem("Dark Mode (On/Off)");
 		formatDarkMode.addActionListener(this);
 		menuFormat.add(formatDarkMode);
 	}
 	public void createViewMenu() {
-		viewZoom = new JMenuItem("Zoom");
-		viewZoom.addActionListener(this);
+		viewZoom = new JMenu("Zoom");
 		menuView.add(viewZoom);
+		
+		viewZoomIn = new JMenuItem("Zoom In");
+		viewZoomIn.addActionListener(this);
+		viewZoom.add(viewZoomIn);
+		
+		viewZoomOut = new JMenuItem("Zoom Out");
+		viewZoomOut.addActionListener(this);
+		viewZoom.add(viewZoomOut);
+		
+		viewZoomDefault = new JMenuItem("Zoom Default");
+		viewZoomDefault.addActionListener(this);
+		viewZoom.add(viewZoomDefault);
+		
 		viewStatusBar = new JMenuItem("Status Bar");
 		viewStatusBar.addActionListener(this);
 		menuView.add(viewStatusBar);
@@ -151,6 +173,9 @@ public class TextEditorGUI implements ActionListener{
 		if(e.getSource() == editUndo) {
 			
 		}
+		if(e.getSource() == editRedo) {
+			
+		}
 		if(e.getSource() == editFind) {
 			
 		}
@@ -169,9 +194,22 @@ public class TextEditorGUI implements ActionListener{
 			
 		}
 		if(e.getSource() == formatDarkMode) {
+			if(textArea.getBackground().equals(Color.WHITE)) {
+				textArea.setBackground(Color.DARK_GRAY);
+				textArea.setForeground(Color.WHITE);
+			}
+			else {
+				textArea.setBackground(Color.WHITE);
+				textArea.setForeground(Color.BLACK);
+			}
+		}
+		if(e.getSource() == viewZoomIn) {
+			System.out.println(textArea.getFont());
+		}
+		if(e.getSource() == viewZoomOut) {
 			
 		}
-		if(e.getSource() == viewZoom) {
+		if(e.getSource() == viewZoomDefault) {
 			
 		}
 		if(e.getSource() == viewStatusBar) {
