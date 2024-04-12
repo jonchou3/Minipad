@@ -185,6 +185,12 @@ public class TextEditorGUI implements ActionListener{
 		myFont = new Font(fontString,Font.PLAIN, fontSize);
 		textArea.setFont(myFont);
 	}
+	public String find() {
+		return "";
+	}
+	public String replace() {
+		return "";
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == fileNew) {
@@ -206,10 +212,10 @@ public class TextEditorGUI implements ActionListener{
 			this.um.redo();
 		}
 		if(e.getSource() == editFind) {
-			
+			find();
 		}
 		if(e.getSource() == editReplace) {
-			
+			replace();
 		}
 		if(e.getSource() == editTimeDate) {
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");  
