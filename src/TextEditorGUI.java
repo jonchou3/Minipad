@@ -15,6 +15,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.event.UndoableEditEvent;
+import javax.swing.event.UndoableEditListener;
+import javax.swing.undo.UndoManager;
 
 public class TextEditorGUI implements ActionListener{
 	
@@ -28,20 +30,26 @@ public class TextEditorGUI implements ActionListener{
 	private JMenuItem formatWordWrap, formatFont, formatDarkMode;
 	private JMenuItem viewZoom, viewZoomIn, viewZoomOut, viewZoomDefault, viewStatusBar;
 	private Font myFont;
+	private String fontString;
+	private int fontSize;
 	private KeyHandler kh;
+	public UndoManager um;
+	public FileIO file = new FileIO(this);
 	
-	private FileIO file = new FileIO(this);
 	public TextEditorGUI() {
-		myFont = new Font("Helvetica",Font.PLAIN, 20);
+		fontString = "Helvetica";
+		fontSize = 20;
+		myFont = new Font(fontString,Font.PLAIN, fontSize);
 		createFrame();
 		createTextArea();
 		createMenuBar();
 		getFrame().setVisible(true);
 		kh = new KeyHandler(this);
+		um = new UndoManager();
 		
 	}
 	public void createFrame() {
-		setFrame(new JFrame("Text Editor (❁´◡`❁)"));
+		setFrame(new JFrame("Text Editor"));
 		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getFrame().setSize(500,500);
 		getFrame().setLocationRelativeTo(null);		
@@ -49,9 +57,16 @@ public class TextEditorGUI implements ActionListener{
 	public void createTextArea() {
 		
 		setTextArea(new JTextArea());
-		getTextArea().setSize(new Dimension(800,800));
-		getTextArea().setFont(myFont);
-		getTextArea().addKeyListener(kh);
+		textArea.setSize(new Dimension(800,800));
+		textArea.setFont(myFont);
+		textArea.getDocument().addUndoableEditListener(
+				new UndoableEditListener() {
+					public void undoableEditHappened(UndoableEditEvent e) {
+						um.addEdit(e.getEdit());
+					}
+				});
+		textArea.addKeyListener(kh);
+		textArea.requestFocus();
 		panel = new JScrollPane(getTextArea(), 
 				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, 
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -147,19 +162,33 @@ public class TextEditorGUI implements ActionListener{
 		viewStatusBar.addActionListener(this);
 		menuView.add(viewStatusBar);
 	}
+	public void newFile() {
+		int response = JOptionPane.showConfirmDialog(null, "Do you want to save your changes?","",JOptionPane.YES_NO_OPTION);
+		//yes, no , if yes, call new 
+		if(response == JOptionPane.YES_OPTION){
+			file.save();
+			textArea.setText("");
+		}
+		else if(response == JOptionPane.NO_OPTION) {
+			textArea.setText("");
+		}
+	}
+	public void zoomIn() {
+		fontSize += 5;
+		myFont = new Font(fontString,Font.PLAIN, fontSize);
+		textArea.setFont(myFont);
+	}
+	public void zoomOut() {
+		if(fontSize > 5) {
+			fontSize -= 5;
+		}
+		myFont = new Font(fontString,Font.PLAIN, fontSize);
+		textArea.setFont(myFont);
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == fileNew) {
-			int response = JOptionPane.showConfirmDialog(null, "Do you want to save your changes?","",JOptionPane.YES_NO_OPTION);
-			//yes, no , if yes, call new 
-			if(response == JOptionPane.YES_OPTION){
-				file.save();
-				textArea.setText("");
-			}
-			else if(response == JOptionPane.NO_OPTION) {
-				textArea.setText("");
-			}
-			
+			newFile();
 		}
 		if(e.getSource() == fileOpen) {
 			file.open();
@@ -171,10 +200,10 @@ public class TextEditorGUI implements ActionListener{
 			file.saveAs();
 		}
 		if(e.getSource() == editUndo) {
-			
+			this.um.undo();
 		}
 		if(e.getSource() == editRedo) {
-			
+			this.um.redo();
 		}
 		if(e.getSource() == editFind) {
 			
@@ -204,13 +233,15 @@ public class TextEditorGUI implements ActionListener{
 			}
 		}
 		if(e.getSource() == viewZoomIn) {
-			System.out.println(textArea.getFont());
+			zoomIn();
 		}
 		if(e.getSource() == viewZoomOut) {
-			
+			zoomOut();
 		}
 		if(e.getSource() == viewZoomDefault) {
-			
+			fontSize = 20;
+			myFont = new Font(fontString,Font.PLAIN, fontSize);
+			textArea.setFont(myFont);			
 		}
 		if(e.getSource() == viewStatusBar) {
 			

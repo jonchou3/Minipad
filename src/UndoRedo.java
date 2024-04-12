@@ -10,23 +10,13 @@ public class UndoRedo {
 	public void Write(String input) {
 		undo.push(input);
 	}
-	public String undo() {
-		if(undo.peek() != null) {
-			String output = undo.pop();
-			redo.push(output);
-			return output;
-		}
-		return "";
+	public void undo() {
+		gui.um.undo();
 	}
-	public String redo() {
-		if(redo.peek() != null) {
-			String output = redo.pop();
-			undo.push(output);
-			return output;
-		}
-		return "";
+	public void redo() {
+		gui.um.redo();
 	}
-	public String find() {
+	public String find() { 
 		return "";
 	}
 	public String replace() {

@@ -12,10 +12,30 @@ public class KeyHandler implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(e.isControlDown() && e.getKeyCode() == KeyEvent.VK_S) {
-			//save
+		if(e.isControlDown() && e.getKeyCode() == KeyEvent.VK_N) {
+			gui.newFile();
 		}
-		
+		if(e.isControlDown() && e.getKeyCode() == KeyEvent.VK_O) {
+			gui.file.open();
+		}
+		if(e.isControlDown() && e.getKeyCode() == KeyEvent.VK_S) {
+			gui.file.save();
+		}
+		if(e.isControlDown() && e.getKeyCode() == KeyEvent.VK_Z) {
+			gui.um.undo();
+		}
+		if(e.isControlDown() && e.getKeyCode() == KeyEvent.VK_Y) {
+			gui.um.redo();
+		}
+		if(e.isControlDown() && e.getKeyCode() == KeyEvent.VK_F) {
+			//editFind
+		}
+		if(e.isControlDown() && e.getKeyCode() == KeyEvent.VK_PLUS) {
+			gui.zoomIn();
+		}
+		if(e.isControlDown() && e.getKeyCode() == KeyEvent.VK_MINUS) {
+			gui.zoomOut();
+		}
 	}
 
 	@Override
